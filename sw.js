@@ -1,5 +1,5 @@
 /* Formatic service worker — cache the shell and the form assets for offline use. */
-var CACHE_VERSION = 'formatic-v4';
+var CACHE_VERSION = 'formatic-v5';
 var CORE = [
   './',
   './index.html',

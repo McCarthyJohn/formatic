@@ -80,19 +80,19 @@
       return meta;
     }
 
+    /* a bundled form only earns a card if its map is actually there */
     FORMS.forEach(function (f) {
-      var meta = addCard(f, 'Loading…');
       fetch(f.map).then(function (r) {
         if (!r.ok) throw new Error('missing');
         return r.json();
       }).then(function (m) {
+        if (token !== homeToken) return;
         var fields = m.questions.reduce(function (n, q) { return n + q.fields.length; }, 0);
         var nq = m.questions.length;
-        meta.textContent = m.form.source_pages + ' pages · ' + nq +
-          (nq === 1 ? ' question · ' : ' questions · ') + fields + ' answers';
-      }).catch(function () {
-        if (meta.parentNode && meta.parentNode.parentNode) meta.parentNode.parentNode.remove();
-      });
+        addCard(f, m.form.source_pages + ' pages · ' + nq +
+          (nq === 1 ? ' question · ' : ' questions · ') + fields + ' answers');
+        emptyState();
+      }).catch(function () { emptyState(); });
     });
 
     FormaticStore.all().then(function (recs) {
@@ -107,7 +107,19 @@
           rec.map.form.source_pages + ' pages · ' + nq + (nq === 1 ? ' question · ' : ' questions · ') +
           fields + ' answers · yours');
       });
-    }).catch(function () {});
+      emptyState();
+    }).catch(function () { emptyState(); });
+
+    function emptyState() {
+      if (token !== homeToken) return;
+      var old = $('homeEmpty');
+      if (old) old.remove();
+      if (list.children.length) return;
+      list.appendChild(el('p', {
+        id: 'homeEmpty', class: 'muted',
+        text: 'No forms yet. Tap “+ Add a form”, choose a PDF, and Formatic will draft the questions for you to check.'
+      }));
+    }
   }
 
   function loadFormData(f) {
