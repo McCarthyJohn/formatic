@@ -1,0 +1,5 @@
+# client forms and test artefacts never leave this machine
+forms/
+tools/out/
+tools/__pycache__/
+*.pyc

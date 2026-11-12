@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Formatic">
+<meta name="theme-color" content="#f6f3ec">
+<title>Formatic</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="bar">
+  <button class="brand" id="homeBtn" aria-label="Formatic home">
+    <span class="mark">F</span><span class="word">Formatic</span>
+  </button>
+  <div class="bar-mid" id="barMid">
+    <span class="form-name" id="formName"></span>
+    <span class="progress" id="progress"></span>
+  </div>
+  <div class="bar-end">
+    <button class="ghost" id="reviewBtn" hidden>Review</button>
+    <button class="primary" id="downloadBtn" hidden>Download PDF</button>
+  </div>
+</header>
+
+<main id="home" class="home">
+  <div class="home-inner">
+    <h1>Fill a form by talking it through.</h1>
+    <p class="lede">Pick a form, answer the questions, and download the original PDF with your answers in place. The page itself never changes.</p>
+    <div class="form-list" id="formList"></div>
+    <div class="home-foot">
+      <button class="ghost" id="addFormBtn">+ Add a form</button>
+      <span class="muted" id="storageNote">Answers stay on this device. The PDF you download is the original with answers drawn on top.</span>
+    </div>
+  </div>
+</main>
+
+<section id="interview" class="interview" hidden>
+  <nav class="rail" id="rail" aria-label="Sections"></nav>
+  <div class="ask">
+    <div class="ask-head">
+      <span class="eyebrow" id="sectionName"></span>
+    </div>
+    <h2 class="prompt" id="prompt"></h2>
+    <div class="fields" id="fields"></div>
+    <div class="ask-foot">
+      <button class="ghost" id="backBtn">Back</button>
+      <span class="count" id="count"></span>
+      <button class="primary" id="nextBtn">Next</button>
+    </div>
+  </div>
+  <div class="paper" id="paper">
+    <div class="paper-head">
+      <span id="pageLabel">Page 1 of 13</span>
+      <button class="ghost small" id="zoomBtn">Fit width</button>
+    </div>
+    <div class="paper-scroll" id="paperScroll">
+      <div class="sheet" id="sheet">
+        <img id="pageImg" alt="">
+        <div class="overlay" id="overlay"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mapper" class="mapper" hidden>
+  <div class="map-bar">
+    <input id="mapName" class="map-name" placeholder="Form name — e.g. Sale instructions" autocomplete="off">
+    <span class="muted" id="mapHint">Click where an answer should be written.</span>
+    <div class="map-actions">
+      <button class="ghost" id="mapCancel">Cancel</button>
+      <button class="primary" id="mapSave">Save form</button>
+    </div>
+  </div>
+  <div class="map-body">
+    <aside class="map-side">
+      <div class="map-tools">
+        <button class="ghost small on" id="modeText">Answer box</button>
+        <button class="ghost small" id="modeCheck">Checkbox</button>
+      </div>
+      <button class="ghost small wide" id="newQuestion">+ New question</button>
+      <div id="mapQuestions" class="map-questions"></div>
+    </aside>
+    <div class="map-stage">
+      <div class="map-pages">
+        <button class="ghost small" id="prevPage">←</button>
+        <span id="mapPageLabel">Page 1</span>
+        <button class="ghost small" id="nextPage">→</button>
+      </div>
+      <div class="map-scroll">
+        <div class="map-canvas-wrap">
+          <canvas id="mapCanvas"></canvas>
+          <div class="map-overlay" id="mapOverlay"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="review" class="review" hidden>
+  <div class="review-inner">
+    <h2>Review</h2>
+    <p class="muted" id="reviewSummary"></p>
+    <div id="reviewList" class="review-list"></div>
+    <div class="review-foot">
+      <button class="ghost" id="backToInterview">Back to questions</button>
+      <button class="primary" id="reviewDownload">Download PDF</button>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="lib/pdf-lib.min.js"></script>
+<script src="lib/pdf.min.js"></script>
+<script src="storage.js"></script>
+<script src="draft.js"></script>
+<script src="mapper.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
