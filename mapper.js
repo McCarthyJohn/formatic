@@ -115,21 +115,24 @@
     if (!window.FormaticDraft || !S.doc) return Promise.resolve(0);
     return FormaticDraft.draft(S.doc).then(function (items) {
       if (!items.length) return 0;
-      var section = null, count = 0, nq = 0;
+      var count = 0, nq = 0, bySection = {};
 
       items.forEach(function (it) {
-        if (it.kind === 'section') {
-          section = { id: 'ds' + (nq + 1), title: it.title, letter: '', page: it.page, y: 0 };
-          S.map.sections.push(section);
-          return;
+        var secId = 'S' + it.page;
+        if (it.section) {
+          if (!bySection[it.section]) {
+            bySection[it.section] = { id: 'sec' + (Object.keys(bySection).length + 1), title: it.section, letter: '', page: it.page, y: 0 };
+            S.map.sections.push(bySection[it.section]);
+          }
+          secId = bySection[it.section].id;
         }
         nq++;
         var q = {
           id: 'dq' + nq,
-          section: section ? section.id : 'S' + it.page,
-          number: String(nq),
+          section: secId,
+          number: it.number || String(nq),
           page: it.page,
-          prompt: it.prompt || ('Field ' + nq),
+          prompt: (it.number ? it.number + '  ' : '') + (it.prompt || ('Field ' + nq)),
           fields: []
         };
         if (it.kind === 'text') {

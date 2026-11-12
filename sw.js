@@ -1,6 +1,6 @@
 /* Formatic service worker — caches the app shell so the installed app opens offline.
    Client PDFs are never listed here: they live in IndexedDB, not in the cache. */
-var CACHE_VERSION = 'formatic-v7';
+var CACHE_VERSION = 'formatic-v8';
 var CORE = [
   './',
   './index.html',
