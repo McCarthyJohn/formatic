@@ -1,5 +1,7 @@
 # Formatic
 
+**Live:** https://mccarthyjohn.github.io/formatic/
+
 Turn a paper PDF form into an interview, then download **the original PDF with the answers
 drawn on top**. No server, no account — everything runs in the browser.
 
@@ -103,3 +105,14 @@ for i in range(a.page_count):
 print('every original word preserved, in order, on every page')
 EOF
 ```
+
+## Releasing
+
+Assets are referenced as `app.js?v=N` because GitHub Pages caches for ten minutes.
+When you change anything:
+
+1. bump `?v=` on every script/style in `index.html`,
+2. bump `CACHE_VERSION` in `sw.js` to match,
+3. `git push`.
+
+Client forms in `forms/` are gitignored on purpose — they never reach the public site.
